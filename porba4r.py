@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 # =============================================
 # CONFIGURACIÓN DE PARÁMETROS (AJUSTAR SEGÚN DATOS)
 # =============================================
-excel_filename = 'basesi.xlsx'  # Nombre del archivo Excel
+excel_filename = 'C:\Users\User\Documents\GitHub\Pruebas\base.xlsx'  # Nombre del archivo Excel
 columna_geografica = 'CIUDAD'   # Columna con ubicaciones (ciudades/departamentos)
 columna_producto = 'PRODUCTO'   # Columna con nombres de productos
 columna_fecha = 'FECHA'         # Columna con fechas de transacciones
