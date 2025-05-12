@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 # =============================================
 # CONFIGURACIÓN DE PARÁMETROS
 # =============================================
-excel_filename = 'pruebas3.xlsx'
+excel_filename = 'basesi2.xlsx'
 columna_geografica = 'CIUDAD'
 columna_producto = 'PRODUCTO'
 columna_fecha = 'FECHA'
