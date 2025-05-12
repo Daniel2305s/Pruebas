@@ -12,7 +12,12 @@ warnings.filterwarnings('ignore')
 # =============================================
 # CONFIGURACIÓN DE PARÁMETROS
 # =============================================
-excel_filename = 'base2.xlsx'
+# Cambia el nombre del archivo si ahora es .csv
+# Si tu archivo sigue llamándose 'base.xlsx' pero es un CSV, puedes dejarlo,
+# pero es mejor renombrarlo a 'base.csv' por claridad.
+# data_filename = 'base.xlsx' # Si insistes en mantener la extensión .xlsx para un CSV
+data_filename = 'base2.csv' # Recomendado si tu archivo es realmente un CSV
+
 columna_geografica = 'CIUDAD'
 columna_producto = 'PRODUCTO'
 columna_fecha = 'FECHA'
@@ -27,12 +32,18 @@ st.set_page_config(page_title="Recomendación de Productos", layout="wide")
 st.title("📦 Recomendación y Predicción de Productos por Ubicación")
 
 try:
-    data_original = pd.read_excel(excel_filename, engine='openpyxl')
+    # Usa pd.read_csv() para archivos separados por comas
+    # Si tu archivo CSV usa un separador diferente a la coma (ej. punto y coma),
+    # puedes especificarlo con el parámetro sep, ej: pd.read_csv(data_filename, sep=';')
+    data_original = pd.read_csv(data_filename)
+
     columnas_requeridas = [columna_geografica, columna_producto, columna_fecha]
     for col in columnas_requeridas:
         if col not in data_original.columns:
-            raise ValueError(f"Columna requerida '{col}' no encontrada")
+            raise ValueError(f"Columna requerida '{col}' no encontrada en el archivo CSV")
 
+    # El resto de tu lógica de procesamiento de datos debería funcionar igual
+    # siempre que las columnas existan y los datos estén en el formato esperado.
     data = data_original[columnas_requeridas + ([columna_cantidad] if columna_cantidad in data_original.columns else [])].copy()
     data.dropna(subset=columnas_requeridas, inplace=True)
     data[columna_fecha] = pd.to_datetime(data[columna_fecha], errors='coerce')
@@ -44,11 +55,19 @@ try:
     else:
         data[columna_cantidad] = 1
 
-    st.success("Datos cargados correctamente")
+    st.success("Datos cargados correctamente desde el archivo CSV")
 
+except FileNotFoundError:
+    st.error(f"Error al cargar datos: No se encontró el archivo '{data_filename}'. Asegúrate de que está en el mismo directorio que tu script.")
+    st.stop()
+except ValueError as ve:
+    st.error(f"Error en los datos: {ve}")
+    st.stop()
 except Exception as e:
     st.error(f"Error al cargar datos: {e}")
     st.stop()
+
+# ... (el resto de tu código sigue igual)
 
 # =============================================
 # DESCRIPCIÓN Y FILTRO POR CIUDAD
