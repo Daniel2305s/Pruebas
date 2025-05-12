@@ -20,7 +20,7 @@ data_filename = 'base2.csv' # Recomendado si tu archivo es realmente un CSV
 
 columna_geografica = 'CIUDAD'
 columna_producto = 'PRODUCTO'
-columna_fecha = 'FECHA'
+##columna_fecha = 'FECHA'
 columna_cantidad = 'CANTIDAD'
 min_meses_historia = 2
 default_cantidad = 10
